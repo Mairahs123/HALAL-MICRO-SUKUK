@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Halal Micro Sukuk – Sharia-compliant micro investments for everyone. Transparent, ethical, global community.">
+    <title>HalalSukuk • Micro Sukuk for All</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        // Tailwind script
+        function initializeTailwind() {
+            tailwind.config = {
+                content: ["./**/*.{html,js}"],
+                theme: {
+                    extend: {
+                        colors: {
+                            primary: '#10b981', // emerald-500 – halal green
+                            secondary: '#0ea5e9' // sky-500
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&display=swap');
+        :root {
+            --font-sans: 'Inter', system-ui, sans-serif;
+        }
+        .hero-bg {
+            background: linear-gradient(135deg, #10b981 0%, #0ea5e9 100%);
+        }
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgb(16 185 129 / 0.1), 0 8px 10px -6px rgb(16 185 129 / 0.1);
+        }
+        .sharia-badge {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased bg-gray-50 text-gray-900">
+    <!-- NAVBAR -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center gap-x-2">
+                    <div class="w-9 h-9 bg-emerald-500 rounded-2xl flex items-center justify-center text-white text-2xl">☪️</div>
+                    <span class="text-2xl font-bold tracking-tighter text-emerald-600">HalalSukuk</span>
+                </div>
+
+                <!-- Menu -->
+                <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                    <a href="#marketplace" onclick="navigateToSection('marketplace')" class="hover:text-emerald-600 transition-colors">Marketplace</a>
+                    <a href="#how-it-works" onclick="navigateToSection('how-it-works')" class="hover:text-emerald-600 transition-colors">How it Works</a>
+                    <a href="#community" onclick="navigateToSection('community')" class="hover:text-emerald-600 transition-colors">Community</a>
+                    <a href="#dashboard" onclick="showDashboard()" class="hover:text-emerald-600 transition-colors">Dashboard</a>
+                </div>
+
+                <div class="flex items-center gap-x-4">
+                    <!-- Wallet / Balance -->
+                    <div onclick="showWalletModal()" class="flex items-center gap-x-2 bg-emerald-50 hover:bg-emerald-100 px-4 py-2 rounded-3xl text-sm font-medium cursor-pointer">
+                        <i class="fa-solid fa-wallet"></i>
+                        <span id="balance-display">$1,250.00</span>
+                    </div>
+
+                    <!-- Auth -->
+                    <div id="auth-section">
+                        <button onclick="showLoginModal()" 
+                                class="px-5 py-2 text-sm font-semibold border border-emerald-600 text-emerald-600 rounded-3xl hover:bg-emerald-50">
+                            Log in
+                        </button>
+                        <button onclick="showRegisterModal()" 
+                                class="px-5 py-2 text-sm font-semibold bg-emerald-600 text-white rounded-3xl hover:bg-emerald-700 ml-2">
+                            Join free
+                        </button>
+                    </div>
+
+                    <!-- User avatar (hidden until logged in) -->
+                    <div id="user-avatar" class="hidden items-center gap-x-2 cursor-pointer" onclick="showDashboard()">
+                        <div class="w-8 h-8 bg-emerald-600 text-white rounded-2xl flex items-center justify-center text-sm font-bold" id="user-initial">MA</div>
+                        <span id="user-name-display" class="font-medium text-sm"></span>
+                    </div>
+
+                    <button onclick="toggleMobileMenu()" class="md:hidden text-2xl">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t px-6 py-4">
+            <a href="#marketplace" onclick="navigateToSection('marketplace');toggleMobileMenu()" class="block py-3 font-medium">Marketplace</a>
+            <a href="#how-it-works" onclick="navigateToSection('how-it-works');toggleMobileMenu()" class="block py-3 font-medium">How it Works</a>
+            <a href="#community" onclick="navigateToSection('community');toggleMobileMenu()" class="block py-3 font-medium">Community</a>
+            <a href="#" onclick="showDashboard();toggleMobileMenu()" class="block py-3 font-medium">My Dashboard</a>
+            <div class="pt-4 border-t flex flex-col gap-3">
+                <button onclick="showLoginModal();toggleMobileMenu()" class="w-full py-3 text-emerald-600 font-semibold border border-emerald-600 rounded-3xl">Log in</button>
+                <button onclick="showRegisterModal();toggleMobileMenu()" class="w-full py-3 bg-emerald-600 text-white font-semibold rounded-3xl">Join free</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero-bg text-white">
+        <div class="max-w-7xl mx-auto px-6 pt-20 pb-16 grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <div class="inline-flex items-center gap-x-2 bg-white/20 backdrop-blur-md px-4 py-2 rounded-3xl text-sm mb-6">
+                    <span class="sharia-badge inline-block w-2 h-2 bg-white rounded-full"></span>
+                    100% Sharia-Compliant • Micro Sukuk
+                </div>
+                <h1 class="text-6xl md:text-7xl font-bold leading-none tracking-tighter mb-6">
+                    Invest small.<br>Earn halal.<br>Change lives.
+                </h1>
+                <p class="text-xl md:text-2xl opacity-90 mb-8 max-w-lg">
+                    The world's first fully online platform for halal micro sukuk. 
+                    Anyone, anywhere can invest in ethical, asset-backed opportunities with full transparency.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <button onclick="navigateToSection('marketplace')" 
+                            class="px-8 py-4 bg-white text-emerald-700 font-semibold rounded-3xl flex items-center gap-x-3 hover:scale-105 transition">
+                        <i class="fa-solid fa-store"></i>
+                        Browse Sukuk Now
+                    </button>
+                    <button onclick="showRegisterModal()" 
+                            class="px-8 py-4 border-2 border-white text-white font-semibold rounded-3xl hover:bg-white/10 transition">
+                        Join 12,847 Halal Investors
+                    </button>
+                </div>
+                <div class="mt-12 flex items-center gap-x-8 text-sm">
+                    <div class="flex -space-x-4">
+                        <div class="w-8 h-8 bg-white rounded-2xl border-2 border-emerald-500 flex items-center justify-center text-xs">🇳🇬</div>
+                        <div class="w-8 h-8 bg-white rounded-2xl border-2 border-emerald-500 flex items-center justify-center text-xs">🇲🇾</div>
+                        <div class="w-8 h-8 bg-white rounded-2xl border-2 border-emerald-500 flex items-center justify-center text-xs">🇹🇷</div>
+                        <div class="w-8 h-8 bg-white rounded-2xl border-2 border-emerald-500 flex items-center justify-center text-xs">🇮🇩</div>
+                    </div>
+                    <div>
+                        <span class="font-semibold">Global community</span><br>
+                        <span class="opacity-75">From Nigeria to Indonesia</span>
+                    </div>
+                    <div class="h-10 w-px bg-white/30"></div>
+                    <div>$4.8M+ invested • 100% halal • Zero riba</div>
+                </div>
+            </div>
+            
+            <!-- Hero visual -->
+            <div class="relative hidden md:block">
+                <div class="bg-white/10 backdrop-blur-3xl rounded-3xl p-8 shadow-2xl">
+                    <div class="bg-white rounded-3xl p-6 text-gray-900">
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <div class="text-emerald-600 text-sm font-semibold">LIVE SUKUK</div>
+                                <h3 class="text-2xl font-semibold">Green Palm Oil Farm Sukuk</h3>
+                                <p class="text-gray-600">Nigeria • 18% expected profit share</p>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-xs uppercase tracking-widest">Raised</div>
+                                <div class="text-4xl font-bold text-emerald-600">$87,420</div>
+                                <div class="text-sm text-gray-500">of $120,000</div>
+                            </div>
+                        </div>
+                        
+                        <div class="h-2 bg-gray-100 rounded-full mb-8">
+                            <div class="h-2 bg-emerald-500 rounded-full w-3/4"></div>
+                        </div>
+                        
+                        <div class="grid grid-cols-3 gap-4 text-center text-xs">
+                            <div class="border border-emerald-100 rounded-2xl py-3">
+                                Min. invest<br><span class="font-bold text-lg">$10</span>
+                            </div>
+                            <div class="border border-emerald-100 rounded-2xl py-3">
+                                Duration<br><span class="font-bold text-lg">24 months</span>
+                            </div>
+                            <div class="border border-emerald-100 rounded-2xl py-3">
+                                Investors<br><span class="font-bold text-lg">1,248</span>
+                            </div>
+                        </div>
+                        
+                        <button onclick="investInFeatured()" 
+                                class="mt-8 w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-3xl font-semibold flex items-center justify-center gap-x-2">
+                            <i class="fa-solid fa-hand-holding-dollar"></i>
+                            Invest $50 now (Halal certified)
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Floating badges -->
+                <div class="absolute -top-6 -left-6 bg-white text-emerald-700 shadow-xl px-6 py-3 rounded-3xl flex items-center gap-2 text-sm font-semibold">
+                    <i class="fa-solid fa-shield-halal text-2xl"></i>
+                    Sharia Board Approved
+                </div>
+                <div class="absolute -bottom-6 -right-6 bg-white text-emerald-700 shadow-xl px-6 py-3 rounded-3xl flex items-center gap-2 text-sm font-semibold">
+                    Blockchain verified
+                    <i class="fa-solid fa-link"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- TRUST BAR -->
+    <div class="bg-white py-6 border-b">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-wrap justify-center items-center gap-x-12 gap-y-6 text-sm text-gray-500">
+                <div class="flex items-center gap-x-2"><i class="fa-solid fa-check-circle text-emerald-500"></i> Audited by AAOIFI</div>
+                <div class="flex items-center gap-x-2"><i class="fa-solid fa-check-circle text-emerald-500"></i> Transparent ledger</div>
+                <div class="flex items-center gap-x-2"><i class="fa-solid fa-check-circle text-emerald-500"></i> No interest • Asset-backed</div>
+                <div class="flex items-center gap-x-2"><i class="fa-solid fa-check-circle text-emerald-500"></i> Instant payouts on maturity</div>
+                <div class="flex items-center gap-x-2"><i class="fa-solid fa-check-circle text-emerald-500"></i> 24/7 Sharia helpline</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MARKETPLACE SECTION -->
+    <section id="marketplace" class="max-w-7xl mx-auto px-6 py-16">
+        <div class="flex justify-between items-end mb-10">
+            <div>
+                <span class="uppercase text-emerald-600 font-semibold text-sm tracking-widest">Live Opportunities</span>
+                <h2 class="text-4xl font-bold tracking-tight">Micro Sukuk Marketplace</h2>
+            </div>
+            <a onclick="navigateToSection('marketplace')" class="text-emerald-600 flex items-center gap-x-2 font-medium">
+                View all 47 sukuk 
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+
+        <div id="sukuk-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Populated by JS -->
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how-it-works" class="bg-white py-16">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <span class="px-5 py-2 bg-emerald-100 text-emerald-700 rounded-3xl text-sm font-semibold">3 steps • 5 minutes</span>
+                <h2 class="text-4xl font-bold mt-4">How Halal Micro Sukuk Works</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="mx-auto w-16 h-16 bg-emerald-100 text-emerald-600 rounded-3xl flex items-center justify-center text-3xl mb-6">1️⃣</div>
+                    <h3 class="font-semibold text-xl mb-3">Browse &amp; Choose</h3>
+                    <p class="text-gray-600">Explore real asset-backed micro sukuk from farms, schools, clinics and small businesses worldwide.</p>
+                </div>
+                <div class="text-center">
+                    <div class="mx-auto w-16 h-16 bg-emerald-100 text-emerald-600 rounded-3xl flex items-center justify-center text-3xl mb-6">2️⃣</div>
+                    <h3 class="font-semibold text-xl mb-3">Invest from $10</h3>
+                    <p class="text-gray-600">Fund your chosen sukuk with any amount above the minimum. Receive digital certificates instantly.</p>
+                </div>
+                <div class="text-center">
+                    <div class="mx-auto w-16 h-16 bg-emerald-100 text-emerald-600 rounded-3xl flex items-center justify-center text-3xl mb-6">3️⃣</div>
+                    <h3 class="font-semibold text-xl mb-3">Earn Halal Profit</h3>
+                    <p class="text-gray-600">Profit is shared proportionally from actual business revenue. Track everything live on dashboard.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMMUNITY -->
+    <section id="community" class="py-16 bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl font-bold mb-6">Join the global halal investor community</h2>
+                    <p class="text-gray-300 mb-8">12,847 members • 47 countries • Daily live webinars with Sharia scholars</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <i class="fa-solid fa-users text-4xl text-emerald-400 mt-1"></i>
+                            <div>
+                                <div class="font-semibold">Weekly Sukuk Spotlight calls</div>
+                                <div class="text-gray-400">Hear directly from project owners and scholars</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <i class="fa-solid fa-handshake text-4xl text-emerald-400 mt-1"></i>
+                            <div>
+                                <div class="font-semibold">Peer-to-peer knowledge exchange</div>
+                                <div class="text-gray-400">Forum, success stories, risk education</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <i class="fa-solid fa-mosque text-4xl text-emerald-400 mt-1"></i>
+                            <div>
+                                <div class="font-semibold">Zakat &amp; Sadaqah integration</div>
+                                <div class="text-gray-400">Automatically allocate portion of profits to charity</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-xl rounded-3xl p-8 text-gray-900">
+                    <div class="text-emerald-600 font-medium mb-4">LIVE COMMUNITY FEED</div>
+                    <div id="community-feed" class="space-y-6 text-sm">
+                        <!-- JS populated testimonials -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DASHBOARD MODAL -->
+    <div id="dashboard-modal" onclick="if(event.target===this)hideDashboard()" class="hidden fixed inset-0 bg-black/70 z-[9999] flex items-center justify-center">
+        <div onclick="event.stopImmediatePropagation()" class="bg-white w-full max-w-4xl mx-4 rounded-3xl max-h-[90vh] overflow-auto">
+            <div class="px-8 py-6 border-b flex items-center justify-between sticky top-0 bg-white z-10">
+                <h2 class="text-3xl font-bold">My Halal Portfolio</h2>
+                <button onclick="hideDashboard()" class="text-3xl">✕</button>
+            </div>
+            
+            <div class="p-8">
+                <div class="grid grid-cols-3 gap-6 mb-10">
+                    <div class="bg-emerald-50 rounded-3xl p-6">
+                        <div class="text-sm text-emerald-600">TOTAL INVESTED</div>
+                        <div id="total-invested" class="text-5xl font-bold mt-2">$2,840</div>
+                    </div>
+                    <div class="bg-emerald-50 rounded-3xl p-6">
+                        <div class="text-sm text-emerald-600">CURRENT VALUE</div>
+                        <div id="current-value" class="text-5xl font-bold mt-2 text-emerald-600">$3,217</div>
+                        <div class="text-emerald-600 text-sm">+13.3% halal profit</div>
+                    </div>
+                    <div class="bg-emerald-50 rounded-3xl p-6">
+                        <div class="text-sm text-emerald-600">NEXT MATURITY</div>
+                        <div class="text-5xl font-bold mt-2">42 days</div>
+                        <div class="text-xs text-gray-500">Palm Oil Sukuk</div>
+                    </div>
+                </div>
+
+                <h3 class="font-semibold mb-4">My Active Sukuk</h3>
+                <div id="portfolio-list" class="space-y-4">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOGIN MODAL -->
+    <div id="login-modal" onclick="if(event.target===this)hideLoginModal()" class="hidden fixed inset-0 bg-
